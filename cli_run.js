@@ -1,8 +1,15 @@
 const { spawn, exec } = require("child_process");
+const minimist = require('minimist');
+
+const args = process.argv.slice(2)
+const parsedArgs = minimist(args)
+let img = parsedArgs.img
+let pdf = parsedArgs.pdf
+
 
 //execute pdf_to_img.py
 function pdf_to_img() {
-    const ls = spawn("python", ["pdf_to_img.py"]);
+    const ls = spawn("python", ["pdf_to_img.py", pdf]);
 
     ls.stdout.on("data", data => {
         console.log(`stdout: ${data}`);
@@ -26,7 +33,7 @@ function pdf_to_img() {
 
 function img_to_txt() {
     //execute img_to_txt.py
-    exec(" python img_to_txt.py 'imgs/161118 Letter_0.jpg'", (error, stdout, stderr) => {
+    exec(` python img_to_txt.py "imgs/${img}" `, (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
             return;
