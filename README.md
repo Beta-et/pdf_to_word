@@ -8,6 +8,8 @@
         [Dev](https://t.me/Leviticus_98)
 
 #### Usage:
+> You'll need to have [Tesseract](https://tesseract-ocr.github.io/tessdoc/Installation.html) installed on your system for the scripts to work
+
 > pdf_to_img.py will convert all PDFs stored in pdfs directory to images and store them in 
         imgs directory
         
