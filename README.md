@@ -3,6 +3,7 @@
 
 #### Description:
 > Script takes in image or a PDF file and converts all readable text to word document format
+
 > This is still in alpha and might have bugs, please use with caution and contact 
         [Dev](https://t.me/Leviticus_98)
 
