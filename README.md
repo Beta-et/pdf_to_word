@@ -21,3 +21,5 @@ python img_to_txt.py 'imgs/161118 Letter_0.jpg'
 ```
 
 > cli_run.js is a JS snippet to demonstrate method of inclusion in nodejs backend
+
+> You can now use ```$ node cli_run.js``` to run all the processes at once
