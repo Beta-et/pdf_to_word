@@ -23,10 +23,10 @@ def extract_text_from_pdf(pdf_file):
     return text
 
 
-def write_text_to_word(text):
+def write_text_to_word(text, file_name):
     doc = docx.Document()
     doc.add_paragraph(text)
-    doc.save("output.docx")
+    doc.save(f"word/{file_name}.docx")
     print('saved')
 
 
@@ -43,8 +43,8 @@ def main():
     else:
         print("Unsupported file format. Please provide a PDF or image file.")
         sys.exit(1)
-
-    write_text_to_word(text)
+    name = str(file_name)[5:-4]
+    write_text_to_word(text, name)
     print(text)
 
 
