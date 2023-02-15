@@ -1,33 +1,54 @@
 import subprocess
 import sys
 import docx
+from pathlib import Path
 
 
-def imgs():
-    images = 'imgs/161118 Letter_0.jpg'
+def img():
+    images = 'img/161118 Letter_0.jpg'
     return images
 
 
 def extract_text_from_image(image_file):
+    image_file = 'img/' + image_file
+    print("path:", image_file)
     text = subprocess.run(["tesseract", image_file, "stdout", "-l", "eng"], capture_output=True, text=True).stdout
     return text
 
 
-def extract_text_from_pdf(pdf_file):
-    images = imgs()
-    text = ""
-    for i, image in enumerate(images):
-        image_file = f"image_{i}.png"
-        image.save(image_file)
-        text += extract_text_from_image(image_file) + "\n"
-    return text
-
-
 def write_text_to_word(text, file_name):
-    doc = docx.Document()
-    doc.add_paragraph(text)
-    doc.save(f"word/{file_name}.docx")
-    print('saved')
+    try:
+        doc = docx.Document(f"word/{file_name}.docx")
+        doc.add_paragraph(text)
+        doc.save(f"word/{file_name}.docx")
+        print('saved')
+    except Exception:
+        docx.Document().save(f"word/{file_name}.docx")
+        write_text_to_word(text, file_name)
+
+
+def append_text_to_word(text, file_name):
+    try:
+        doc = docx.Document(f"word/{file_name}.docx")
+        doc.add_paragraph(text)
+        doc.save(f"word/{file_name}.docx")
+        print('saved')
+    except Exception:
+        docx.Document().save(f"word/{file_name}.docx")
+        append_text_to_word(text, file_name)
+
+
+def check_multiple_page(file_name):
+    path_list = Path('img').glob(f'*{file_name}*')
+    files = []
+    for path in path_list:
+        path_in_str = str(path)
+        files.append(path_in_str[4:])
+
+    if len(files) == 1:
+        return 1, files
+    else:
+        return len(files), files
 
 
 def main():
@@ -36,16 +57,31 @@ def main():
         sys.exit(1)
 
     file_name = sys.argv[1]
-    if file_name.endswith(".pdf"):
-        text = extract_text_from_pdf(file_name)
-    elif file_name.endswith(".jpg") or file_name.endswith(".png"):
-        text = extract_text_from_image(file_name)
+    name = str(file_name)
+    file_count, files = check_multiple_page(file_name)
+    files.sort()
+    print("count:", file_count, "files:", files)
+
+    if file_count == 1:
+        if files[0].endswith(".jpg") or files[0].endswith(".png"):
+            text = extract_text_from_image(files[0])
+        else:
+            print("Unsupported file format. Please provide a PDF or image file.")
+            sys.exit(1)
+
+        # print(text)
+        write_text_to_word(text, name)
+
     else:
-        print("Unsupported file format. Please provide a PDF or image file.")
-        sys.exit(1)
-    name = str(file_name)[5:-4]
-    write_text_to_word(text, name)
-    print(text)
+        for file in files:
+            if file.endswith(".jpg") or file.endswith(".png"):
+                text = extract_text_from_image(file)
+            else:
+                print("Unsupported file format. Please provide a PDF or image file.")
+                sys.exit(1)
+
+            # print(text)
+            append_text_to_word(text, name)
 
 
 if __name__ == "__main__":

@@ -11,15 +11,8 @@
 > You'll need to have [Tesseract](https://tesseract-ocr.github.io/tessdoc/Installation.html) installed on your system for the scripts to work
 
 > pdf_to_img.py will convert all PDFs stored in pdfs directory to images and store them in 
-        imgs directory
-        
-> use img_to_txt.py as a cli command to read text from the provided images to a word document
-        - use cli to call img_to_txt.py in the following format:
-        
-```bash
-python img_to_txt.py 'imgs/161118 Letter_0.jpg'
-```
+        img directory
 
 > cli_run.js is a JS snippet to demonstrate method of inclusion in nodejs backend
 
-> You can now use ```$ node cli_run.js``` to run all the processes at once
+> You can now use ```$ node cli_run.js --pdf='<your pdf file name with extension>'``` to run all the processes at once

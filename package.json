@@ -2,6 +2,7 @@
   "name": "pdf_2_img",
   "version": "1.0.0",
   "dependencies": {
+    "glob": "^8.1.0",
     "minimist": "^1.2.7"
   }
 }
