@@ -23,19 +23,23 @@ def main(page: ft.Page):
     def OCR(file, file_w_path):
         img_ext = ['.png', '.jpg', 'jpeg']
         ext = file[-4:]
-        if file.endswith('.pdf'):
-            pti.main(file_w_path, file)
-            print('PDF converted to Image')
+        try:
+            if file.endswith('.pdf'):
+                pti.main(file_w_path, file)
+                print('PDF converted to Image')
 
-            itt.main(file[:-4])
-            print('Image converted to Text')
-            return "Complete"
-        elif file[-4:] in img_ext:
-            itt.main(file[:-4])
-            print('Image converted to Text')
-            return "Complete"
-        else:
-            return "Failed"
+                itt.main(file[:-4])
+                print('Image converted to Text')
+                return "Complete"
+            elif file[-4:] in img_ext:
+                itt.main(file[:-4])
+                print('Image converted to Text')
+                return "Complete"
+            else:
+                return "Failed"
+
+        except ModuleNotFoundError:
+            return "module Tesseract is not installed"
 
     pick_files_dialog = ft.FilePicker(on_result=file_pick)
     selected_files = ft.Text()
