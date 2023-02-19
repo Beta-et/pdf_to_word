@@ -51,12 +51,7 @@ def check_multiple_page(file_name):
         return len(files), files
 
 
-def main():
-    if len(sys.argv) != 2:
-        print("Please provide a file name as an argument.")
-        sys.exit(1)
-
-    file_name = sys.argv[1]
+def main(file_name):
     name = str(file_name)
     file_count, files = check_multiple_page(file_name)
     files.sort()
@@ -82,7 +77,3 @@ def main():
 
             # print(text)
             append_text_to_word(text, name)
-
-
-if __name__ == "__main__":
-    main()
