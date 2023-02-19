@@ -14,7 +14,7 @@ install:
 - pip install -r requirements.txt
 
 build_script:
-- flet pack flet_ui.py --add-data "img;img" --add-data "pdfs;pdfs" --add-data "raw;raw" --add-data "word;word" --icon ocr1.png --product-name 'Beta OCR' --product-version '0.1' --copyright 'Copyright (c) 2023 Beta PLC'
+- flet pack flet_ui.py --add-data "img:img" --add-data "pdfs:pdfs" --add-data "raw:raw" --add-data "word:word" --icon ocr1.png --product-name 'Beta OCR' --product-version '0.1' --copyright 'Copyright (c) 2023 Beta PLC'
 test: off
 
 # Publish artifacts to GitHub Releases on "tag" builds
