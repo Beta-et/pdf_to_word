@@ -11,7 +11,7 @@ def main(page: ft.Page):
             try:
                 os.mkdir(_path)
             except FileExistsError:
-                pass
+                print(f"{_path} already exists")
 
     page.title = "Beta OCR"
     page.theme = ft.Theme(color_scheme_seed='black', use_material3=True)
