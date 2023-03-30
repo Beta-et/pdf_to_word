@@ -2,6 +2,8 @@ import subprocess
 import sys
 import docx
 from pathlib import Path
+import tkinter as tk
+from cropper import App
 
 
 def img():
@@ -14,6 +16,27 @@ def extract_text_from_image(image_file):
     print("path:", image_file)
     text = subprocess.run(["tesseract", image_file, "stdout", "-l", "eng"], capture_output=True, text=True).stdout
     return text
+
+
+def header_footer(doc, file_name):
+    print('header_footer')
+    head = ""
+    foot = ""
+    path_list = Path('cropped').glob(f'*{file_name}*')
+    for path in path_list:
+        if str(path)[:-4].endswith('top'):
+            head = str(path)
+        elif str(path)[:-4].endswith('btm'):
+            foot = str(path)
+
+    header = doc.sections[0].header
+    header.paragraphs[0].add_run().add_picture(head)
+
+    footer = doc.sections[0].footer
+    footer.paragraphs[0].add_run().add_picture(foot)
+
+    print("head:", head)
+    print("foot:", foot)
 
 
 def write_text_to_word(text, file_name):
@@ -51,10 +74,19 @@ def check_multiple_page(file_name):
         return len(files), files
 
 
+def cropper(filename):
+    root = tk.Tk()
+    app = App(root, filename)
+    root.mainloop()
+
+
 def main(file_name):
     name = str(file_name)
     file_count, files = check_multiple_page(file_name)
     files.sort()
+
+    cropper(files[0])
+
     print("count:", file_count, "files:", files)
 
     if file_count == 1:
@@ -77,3 +109,8 @@ def main(file_name):
 
             # print(text)
             append_text_to_word(text, name)
+
+    doc = docx.Document(f'word/{name}.docx')
+    header_footer(doc, name)
+    doc.save(f"word/{name}.docx")
+

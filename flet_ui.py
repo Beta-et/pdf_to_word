@@ -5,7 +5,7 @@ import flet as ft
 
 
 def main(page: ft.Page):
-    paths = ['word', 'img', 'pdfs', 'raw']
+    paths = ['word', 'img', 'pdfs', 'raw', 'cropped']
     for _path in paths:
         if not os.path.exists(_path):
             try:
