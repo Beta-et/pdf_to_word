@@ -17,4 +17,6 @@ img directory
 > The program will run with a flet ui based interface for simplicity and human interaction, simply pick the file from
 the directory, and it'll do the rest
 
+> The app will open up an interactive window with converted image file for manual header and footer selection. 
+
 >  Final outputs will be stored in `word` directory of the program's root
