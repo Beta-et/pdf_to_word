@@ -6,11 +6,6 @@ import tkinter as tk
 from cropper import App
 
 
-def img():
-    images = 'img/161118 Letter_0.jpg'
-    return images
-
-
 def extract_text_from_image(image_file):
     image_file = 'img/' + image_file
     print("path:", image_file)
