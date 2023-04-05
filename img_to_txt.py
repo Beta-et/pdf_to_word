@@ -29,14 +29,16 @@ def header_footer(doc, file_name):
         elif str(path)[:-4].endswith('btm'):
             foot = str(path)
 
-    header = doc.sections[0].header
-    header.paragraphs[0].add_run().add_picture(head)
-
-    footer = doc.sections[0].footer
-    footer.paragraphs[0].add_run().add_picture(foot)
-
     print("head:", head)
     print("foot:", foot)
+
+    if head != "":
+        header = doc.sections[0].header
+        header.paragraphs[0].add_run().add_picture(head)
+
+    if foot != "":
+        footer = doc.sections[0].footer
+        footer.paragraphs[0].add_run().add_picture(foot)
 
 
 def write_text_to_word(text, file_name):

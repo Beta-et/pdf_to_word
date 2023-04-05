@@ -24,15 +24,15 @@ class App:
     def open_image(self):
         self.image = Image.open(self.filename)
         print(self.filename)
-        self.canvas.config(width=900, height=900)
+        self.canvas.config(width=600, height=600)
 
         w, h = self.image.size
-        if w > 900:
-            h = int(h * 900 / w)
-            w = 900
-        if h > 900:
-            w = int(w * 900 / h)
-            h = 900
+        if w > 600:
+            h = int(h * 600 / w)
+            w = 600
+        if h > 600:
+            w = int(w * 600 / h)
+            h = 600
         self.image = self.image.resize((w, h))
 
         self.tk_image = ImageTk.PhotoImage(self.image)
